@@ -1,0 +1,18 @@
+.toolbar {
+    
+    text-align: center;
+    & > span {
+        padding: 0.5em;
+        &:hover {
+            cursor: pointer;
+            color: gray;
+            opacity: 0.7;
+            transition: all 0.2s;
+        }
+    }
+}
+
+.ProseMirror {
+    background:rgb(247, 255, 255);
+    color: rgb(0, 32, 32);
+}
