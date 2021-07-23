@@ -1,11 +1,14 @@
-import Editor from "./comp/Editor.js";
+import Editor from "./comp/Editor";
+import Navbar from "./comp/Navbar";
+import Home from "./comp/Home";
 import "./App.css";
 
 function App() {
     return (
         <div className="App">
-            <h1>DynoWrite</h1>
-            <Editor />
+            <Navbar />
+            <Home />
+            {/* <Editor /> */}
         </div>
     );
 }
