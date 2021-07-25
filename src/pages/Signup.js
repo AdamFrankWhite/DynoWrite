@@ -1,28 +1,24 @@
 import React, { useState } from "react";
-import axios from "axios";
-export default function Signup() {
+import { connect } from "react-redux";
+import { signupUser } from "../redux/actions/userActions";
+
+function Signup(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password == confirmPassword) {
             console.log(email, password, confirmPassword);
-            axios
-                .post("http://localhost:5000/signup", {
-                    email,
-                    password,
-                    confirmPassword,
-                })
-                .then((res) => console.log(res.data))
-                .catch((err) => console.log(err));
+            props.signupUser({ email, password, confirmPassword });
         }
     };
     return (
         <section className="login-cont">
             <form onSubmit={(e) => handleSubmit(e)}>
                 <i
-                    class="fas fa-user-plus"
+                    className="fas fa-user-plus"
                     style={{
                         padding: "0.5em",
                         border: "1px solid black",
@@ -37,7 +33,6 @@ export default function Signup() {
                     type="email"
                     name="email"
                     onChange={(e) => setEmail(e.target.value)}
-                    validation
                 />
                 <label htmlFor="password">Password</label>
                 <input
@@ -56,3 +51,15 @@ export default function Signup() {
         </section>
     );
 }
+
+const mapStateToProps = function (state) {
+    return {
+        user: state.user,
+    };
+};
+
+const mapActionsToProps = {
+    signupUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Signup);

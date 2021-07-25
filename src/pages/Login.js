@@ -1,26 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-export default function Login() {
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
+function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const history = useHistory();
+    // const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email, password);
-        axios
-            .post("http://localhost:5000/login", {
-                email,
-                password,
-            })
-            .then((res) => {
-                if (res.data.token) {
-                    console.log(res.data.token);
-                    history.push("/editor");
-                }
-            })
-            .catch((err) => console.log(err));
+        props.loginUser({ email, password });
     };
     return (
         <section className="login-cont">
@@ -53,3 +42,15 @@ export default function Login() {
         </section>
     );
 }
+
+const mapStateToProps = function (state) {
+    return {
+        user: state.user,
+    };
+};
+
+const mapActionsToProps = {
+    loginUser,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(Login);
