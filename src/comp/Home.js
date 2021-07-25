@@ -1,9 +1,11 @@
 import React from "react";
 import backgroundImage from "../assets/images/typewriter-801921_1280.jpg";
+import featureImage from "../assets/images/pages_ebook_formatting.jpg";
+import Editor from "./Editor";
 export default function Home() {
     return (
-        <section>
-            <div
+        <>
+            <section
                 className="hero-home"
                 style={{
                     backgroundImage: `url(${backgroundImage})`,
@@ -20,7 +22,20 @@ export default function Home() {
                     are looking for a simple, intuitive, minimal yet highly
                     functional writing tool? Dynowrite has your covered.
                 </p>
-            </div>
-        </section>
+            </section>
+            <section className="features">
+                {/* <img src={featureImage} alt="features-img" /> */}
+                {/* <Editor /> */}
+                {/* <div>
+                    <h3>Features</h3>
+                    <ul>
+                        <li>Smooth, visual writer</li>
+                        <li>Organise by theme, section, category</li>
+                        <li>Sync with OneDrive and GoogleDrive</li>
+                        <li>Offline mode</li>
+                    </ul>
+                </div> */}
+            </section>
+        </>
     );
 }
