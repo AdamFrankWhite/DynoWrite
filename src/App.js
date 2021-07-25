@@ -7,7 +7,13 @@ import MyDocs from "./pages/MyDocs.js";
 import Dashboard from "./pages/Dashboard";
 import history from "./history";
 import "./App.css";
-import { Router, Redirect, Route, Switch, withRouter } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Redirect,
+    Route,
+    Switch,
+    withRouter,
+} from "react-router-dom";
 function App() {
     return (
         <div className="App">

@@ -1,6 +1,7 @@
 import {
     SET_USER,
     SET_AUTHENTICATION,
+    LOGOUT,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -32,8 +33,13 @@ export const loginUser = (userData) => (dispatch) => {
             if (res.data.token) {
                 console.log(res.data.token);
                 history.push("/my-docs");
+
                 dispatch({ type: SET_AUTHENTICATION, payload: res.data });
             }
         })
         .catch((err) => console.log(err));
+};
+
+export const logout = () => (dispatch) => {
+    dispatch({ type: LOGOUT });
 };

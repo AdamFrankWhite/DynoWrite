@@ -8,3 +8,4 @@ export const LOADING_USER = "LOADING_USER";
 export const FAIL_RES = "FAIL_RES";
 export const SUCCESS_RES = "SUCCESS_RES";
 export const LOADING_UI = "LOADING_UI";
+export const LOGOUT = "LOGOUT";

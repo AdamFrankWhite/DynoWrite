@@ -1,6 +1,7 @@
 import {
     SET_USER,
     SET_AUTHENTICATION,
+    LOGOUT,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     SUCCESS_RES,
@@ -20,7 +21,8 @@ export default function (state = initialState, action) {
                 authenticated: true,
                 token: action.payload.token,
             };
-        case SET_UNAUTHENTICATED:
+
+        case LOGOUT:
             return initialState;
         case SET_USER:
             return {
