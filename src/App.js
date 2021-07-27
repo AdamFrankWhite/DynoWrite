@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyDocs from "./pages/MyDocs.js";
 import Dashboard from "./pages/Dashboard";
-import history from "./history";
 import "./App.css";
 import {
     BrowserRouter as Router,
@@ -17,7 +16,7 @@ import {
 function App() {
     return (
         <div className="App">
-            <Router history={history}>
+            <Router>
                 <Navbar />
                 <Switch>
                     <Route exact path={"/"} component={Home} />

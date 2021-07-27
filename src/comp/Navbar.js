@@ -18,10 +18,15 @@ function Navbar(props) {
                 {props.user.authenticated && (
                     <ul>
                         <li>
-                            <NavLink to="/signup">Sign up</NavLink>
+                            <NavLink to="/editor">Create</NavLink>
                         </li>
-                        <li>My Docs</li>
-                        <li>Pricing</li>
+                        <li>
+                            <NavLink to="/dashboard">Dashboard</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/my-docs">My Docs</NavLink>
+                        </li>
+                        <li>Settings</li>
                         <li>
                             <NavLink to="/" onClick={() => props.logout()}>
                                 Logout

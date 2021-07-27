@@ -9,7 +9,7 @@ function Login(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email, password);
-        props.loginUser({ email, password });
+        props.loginUser({ email, password }, props.history);
     };
     return (
         <section className="login-cont">

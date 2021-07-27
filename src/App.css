@@ -159,8 +159,9 @@ form input[type=submit] {
 }
 
 .ProseMirror {
-  background: #f7ffff;
-  color: #002020;
+  color: #303030;
+  min-height: 60vh;
+  padding: 2em 5vw;
 }
 
 /*# sourceMappingURL=App.css.map */

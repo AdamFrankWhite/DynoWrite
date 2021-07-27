@@ -11,7 +11,10 @@ function Signup(props) {
         e.preventDefault();
         if (password == confirmPassword) {
             console.log(email, password, confirmPassword);
-            props.signupUser({ email, password, confirmPassword });
+            props.signupUser(
+                { email, password, confirmPassword },
+                props.history
+            );
         }
     };
     return (
