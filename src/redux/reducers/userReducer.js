@@ -6,11 +6,13 @@ import {
     LOADING_UI,
     SUCCESS_RES,
     FAIL_RES,
+    UPDATE_WRITING_SESSION,
 } from "../types";
 
 const initialState = {
     authenticated: false,
     token: "",
+    writingSession: null,
 };
 
 export default function (state = initialState, action) {
@@ -24,6 +26,11 @@ export default function (state = initialState, action) {
 
         case LOGOUT:
             return initialState;
+        case UPDATE_WRITING_SESSION:
+            return {
+                ...state,
+                writingSession: action.payload,
+            };
         case SET_USER:
             return {
                 ...state,

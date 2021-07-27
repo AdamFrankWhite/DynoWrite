@@ -9,3 +9,4 @@ export const FAIL_RES = "FAIL_RES";
 export const SUCCESS_RES = "SUCCESS_RES";
 export const LOADING_UI = "LOADING_UI";
 export const LOGOUT = "LOGOUT";
+export const UPDATE_WRITING_SESSION = "UPDATE_WRITING_SESSION";

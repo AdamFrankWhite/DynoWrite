@@ -17,13 +17,17 @@ import {
     faAlignJustify,
     faAlignRight,
     faAlignLeft,
+    faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { connect } from "react-redux";
+import { updateWritingSession } from "../redux/actions/userActions";
 const MenuBar = ({ editor }) => {
     if (!editor) {
         return null;
     }
     // const [htmlExport, setHtmlExport] = useState(null)
-    const exportHtml = () => {
+    const exportPdf = () => {
         const html = editor.getHTML();
         var options = {
             method: "POST",
@@ -54,6 +58,9 @@ const MenuBar = ({ editor }) => {
                 console.error(error);
             });
     };
+
+    const save = () => {};
+
     return (
         <div className="toolbar">
             <span
@@ -156,14 +163,17 @@ const MenuBar = ({ editor }) => {
             >
                 <FontAwesomeIcon icon={faAlignJustify} />
             </span>
-            <span onClick={() => exportHtml()}>
+            <span onClick={() => exportPdf()}>
+                <FontAwesomeIcon icon={faFilePdf} />
+            </span>
+            <span onClick={() => save()}>
                 <FontAwesomeIcon icon={faSave} />
             </span>
         </div>
     );
 };
 
-export default () => {
+const MyEditor = (props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -173,31 +183,13 @@ export default () => {
             Highlight,
         ],
         content: `
-      <h3 style="text-align:center">
-        Devs Just Want to Have Fun by Cyndi Lauper
-      </h3>
-      <p style="text-align:center">
-        I come home in the morning light<br>
-        My mother says, “When you gonna live your life right?”<br>
-        Oh mother dear we’re not the fortunate ones<br>
-        And devs, they wanna have fun<br>
-        Oh devs just want to have fun</p>
-      <p style="text-align:center">
-        The phone rings in the middle of the night<br>
-        My father yells, "What you gonna do with your life?"<br>
-        Oh daddy dear, you know you’re still number one<br>
-        But <s>girls</s>devs, they wanna have fun<br>
-        Oh devs just want to have
-      </p>
-      <p style="text-align:center">
-        That’s all they really want<br>
-        Some fun<br>
-        When the working day is done<br>
-        Oh devs, they wanna have fun<br>
-        Oh devs just wanna have fun<br>
-        (devs, they wanna, wanna have fun, devs wanna have)
-      </p>
+      
     `,
+        autofocus: true,
+        onUpdate() {
+            const json = this.getJSON();
+            props.updateWritingSession(json);
+        },
     });
 
     return (
@@ -207,3 +199,14 @@ export default () => {
         </div>
     );
 };
+const mapStateToProps = function (state) {
+    return {
+        user: state.user,
+        writingSession: state.writingSession,
+    };
+};
+
+const mapActionsToProps = {
+    updateWritingSession,
+};
+export default connect(mapStateToProps, mapActionsToProps)(MyEditor);
