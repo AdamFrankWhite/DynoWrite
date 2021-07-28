@@ -9,6 +9,8 @@ import {
     SUCCESS_RES,
     FAIL_RES,
     UPDATE_WRITING_SESSION,
+    GET_DOCUMENTS,
+    SET_CURRENT_DOCUMENT,
 } from "../types";
 
 const initialState = {
@@ -41,6 +43,7 @@ export default function (state = initialState, action) {
         case UPDATE_FILE:
             return {
                 ...state,
+                user: action.payload.user,
                 currentDoc: action.payload.currentDoc,
             };
         case CREATE_FILE:
@@ -48,6 +51,17 @@ export default function (state = initialState, action) {
                 ...state,
                 documents: action.payload.documents,
                 currentDoc: action.payload.currentDoc,
+            };
+        case SET_CURRENT_DOCUMENT:
+            return {
+                ...state,
+                currentDoc: action.payload,
+            };
+        case GET_DOCUMENTS:
+            return {
+                ...state,
+                user: action.payload.user,
+                documents: action.payload.documents,
             };
         case SET_USER:
             return {

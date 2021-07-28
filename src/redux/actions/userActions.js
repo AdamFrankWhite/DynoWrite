@@ -6,6 +6,8 @@ import {
     SAVE_FILE,
     CREATE_FILE,
     UPDATE_FILE,
+    SET_CURRENT_DOCUMENT,
+    GET_DOCUMENTS,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -51,10 +53,10 @@ export const updateWritingSession = (text) => (dispatch) => {
     dispatch({ type: UPDATE_WRITING_SESSION, payload: text });
 };
 
-export const saveFile = (filename, text, user) => (dispatch) => {
+export const saveFile = (filename, document, user) => (dispatch) => {
     console.log("saved");
     axios
-        .post("http://localhost:5000/save", { user, filename, text })
+        .post("http://localhost:5000/save", { user, filename, document })
         .then((res) => {
             console.log(res.data);
         });
@@ -65,7 +67,7 @@ export const updateFilename = (filename, user, id) => (dispatch) => {
     axios
         .post("http://localhost:5000/update-filename", { filename, user, id })
         .then((res) => {
-            console.log(res.data.currentDoc);
+            console.log(res.data);
             dispatch({ type: UPDATE_FILE, payload: res.data });
         });
 };
@@ -74,5 +76,24 @@ export const createDoc = (email) => (dispatch) => {
     axios.post("http://localhost:5000/create-file", { email }).then((res) => {
         console.log(res.data);
         dispatch({ type: CREATE_FILE, payload: res.data });
+    });
+};
+
+export const setCurrentDocument = (filename, content) => (dispatch) => {
+    // axios
+    //     .get("http://localhost:5000/set-current-document", {
+    //         filename,
+    //         content,
+    //     })
+    //     .then((res) => {
+    console.log(filename, content);
+    dispatch({ type: SET_CURRENT_DOCUMENT, payload: { filename, content } });
+    // });
+};
+
+export const getDocuments = (user) => (dispatch) => {
+    axios.post("http://localhost:5000/get-docs", { user }).then((res) => {
+        console.log(res.data);
+        dispatch({ type: GET_DOCUMENTS, payload: res.data.user });
     });
 };

@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../assets/images/logo.png";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout, createDoc } from "../redux/actions/userActions";
+import { logout, createDoc, getDocuments } from "../redux/actions/userActions";
 import userEvent from "@testing-library/user-event";
 function Navbar(props) {
     return (
@@ -31,7 +31,14 @@ function Navbar(props) {
                             <NavLink to="/dashboard">Dashboard</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/my-docs">My Docs</NavLink>
+                            <NavLink
+                                to="/my-docs"
+                                onClick={() =>
+                                    props.getDocuments(props.user.email)
+                                }
+                            >
+                                My Docs
+                            </NavLink>
                         </li>
                         <li>Settings</li>
                         <li>
@@ -70,6 +77,7 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
     logout,
     createDoc,
+    getDocuments,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);
