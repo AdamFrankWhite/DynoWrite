@@ -199,7 +199,7 @@ const MyEditor = (props) => {
             }),
             Highlight,
         ],
-        content,
+        content: content,
 
         autofocus: true,
         onUpdate() {

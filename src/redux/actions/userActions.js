@@ -64,6 +64,7 @@ export const saveFile = (filename, document, user) => (dispatch) => {
 };
 
 export const updateFilename = (filename, user, id) => (dispatch) => {
+    console.log(filename, user, id);
     axios
         .post("http://localhost:5000/update-filename", { filename, user, id })
         .then((res) => {
@@ -79,7 +80,7 @@ export const createDoc = (email) => (dispatch) => {
     });
 };
 
-export const setCurrentDocument = (filename, content) => (dispatch) => {
+export const setCurrentDocument = (filename, content, id) => (dispatch) => {
     // axios
     //     .get("http://localhost:5000/set-current-document", {
     //         filename,
@@ -87,7 +88,10 @@ export const setCurrentDocument = (filename, content) => (dispatch) => {
     //     })
     //     .then((res) => {
     console.log(filename, content);
-    dispatch({ type: SET_CURRENT_DOCUMENT, payload: { filename, content } });
+    dispatch({
+        type: SET_CURRENT_DOCUMENT,
+        payload: { filename, content, id },
+    });
     // });
 };
 

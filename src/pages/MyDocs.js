@@ -13,12 +13,14 @@ function MyDocs(props) {
                         <li>
                             <NavLink
                                 to={"/editor"}
-                                onClick={() =>
+                                onClick={() => {
+                                    console.log(doc);
                                     props.setCurrentDocument(
                                         doc.filename,
-                                        doc.content
-                                    )
-                                }
+                                        doc.content,
+                                        doc.id
+                                    );
+                                }}
                             >
                                 {doc.filename}
                             </NavLink>
