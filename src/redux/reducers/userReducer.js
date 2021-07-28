@@ -2,6 +2,8 @@ import {
     SET_USER,
     SET_AUTHENTICATION,
     LOGOUT,
+    CREATE_FILE,
+    UPDATE_FILE,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     SUCCESS_RES,
@@ -13,6 +15,9 @@ const initialState = {
     authenticated: false,
     token: "",
     writingSession: null,
+    email: null,
+    documents: [],
+    currentDoc: null,
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +27,8 @@ export default function (state = initialState, action) {
                 ...state,
                 authenticated: true,
                 token: action.payload.token,
+                email: action.payload.user.email,
+                documents: action.payload.user.documents,
             };
 
         case LOGOUT:
@@ -30,6 +37,17 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 writingSession: action.payload,
+            };
+        case UPDATE_FILE:
+            return {
+                ...state,
+                currentDoc: action.payload.currentDoc,
+            };
+        case CREATE_FILE:
+            return {
+                ...state,
+                documents: action.payload.documents,
+                currentDoc: action.payload.currentDoc,
             };
         case SET_USER:
             return {

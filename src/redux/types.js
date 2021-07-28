@@ -10,3 +10,6 @@ export const SUCCESS_RES = "SUCCESS_RES";
 export const LOADING_UI = "LOADING_UI";
 export const LOGOUT = "LOGOUT";
 export const UPDATE_WRITING_SESSION = "UPDATE_WRITING_SESSION";
+export const SAVE_FILE = "SAVE_FILE";
+export const UPDATE_FILE = "UPDATE_FILE";
+export const CREATE_FILE = "CREATE_FILE";

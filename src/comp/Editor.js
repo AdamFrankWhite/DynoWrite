@@ -21,8 +21,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import { connect } from "react-redux";
-import { updateWritingSession } from "../redux/actions/userActions";
-const MenuBar = ({ editor }) => {
+import { updateWritingSession, saveFile } from "../redux/actions/userActions";
+const MenuBar = (props) => {
+    const { editor } = props;
     if (!editor) {
         return null;
     }
@@ -58,8 +59,6 @@ const MenuBar = ({ editor }) => {
                 console.error(error);
             });
     };
-
-    const save = () => {};
 
     return (
         <div className="toolbar">
@@ -166,7 +165,7 @@ const MenuBar = ({ editor }) => {
             <span onClick={() => exportPdf()}>
                 <FontAwesomeIcon icon={faFilePdf} />
             </span>
-            <span onClick={() => save()}>
+            <span onClick={() => props.saveFile()}>
                 <FontAwesomeIcon icon={faSave} />
             </span>
         </div>
@@ -194,7 +193,7 @@ const MyEditor = (props) => {
 
     return (
         <div>
-            <MenuBar editor={editor} />
+            <MenuBar saveFile={props.saveFile} editor={editor} />
             <EditorContent editor={editor} />
         </div>
     );
@@ -208,5 +207,6 @@ const mapStateToProps = function (state) {
 
 const mapActionsToProps = {
     updateWritingSession,
+    saveFile,
 };
 export default connect(mapStateToProps, mapActionsToProps)(MyEditor);

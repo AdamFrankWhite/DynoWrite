@@ -3,6 +3,9 @@ import {
     SET_AUTHENTICATION,
     LOGOUT,
     UPDATE_WRITING_SESSION,
+    SAVE_FILE,
+    CREATE_FILE,
+    UPDATE_FILE,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -31,7 +34,7 @@ export const loginUser = (userData, history) => (dispatch) => {
         .post("http://localhost:5000/login", userData)
         .then((res) => {
             if (res.data.token) {
-                console.log(res.data.token);
+                console.log(res.data);
                 history.push("/my-docs");
 
                 dispatch({ type: SET_AUTHENTICATION, payload: res.data });
@@ -45,6 +48,31 @@ export const logout = () => (dispatch) => {
 };
 
 export const updateWritingSession = (text) => (dispatch) => {
-    console.log(text);
     dispatch({ type: UPDATE_WRITING_SESSION, payload: text });
+};
+
+export const saveFile = (filename, text, user) => (dispatch) => {
+    console.log("saved");
+    axios
+        .post("http://localhost:5000/save", { user, filename, text })
+        .then((res) => {
+            console.log(res.data);
+        });
+    dispatch({ type: SAVE_FILE });
+};
+
+export const updateFilename = (filename, user, id) => (dispatch) => {
+    axios
+        .post("http://localhost:5000/update-filename", { filename, user, id })
+        .then((res) => {
+            console.log(res.data.currentDoc);
+            dispatch({ type: UPDATE_FILE, payload: res.data });
+        });
+};
+
+export const createDoc = (email) => (dispatch) => {
+    axios.post("http://localhost:5000/create-file", { email }).then((res) => {
+        console.log(res.data);
+        dispatch({ type: CREATE_FILE, payload: res.data });
+    });
 };

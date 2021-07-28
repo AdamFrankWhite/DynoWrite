@@ -1,4 +1,4 @@
-import Editor from "./comp/Editor";
+import Document from "./pages/Document";
 import Navbar from "./comp/Navbar";
 import Home from "./comp/Home";
 import Login from "./pages/Login";
@@ -22,7 +22,7 @@ function App() {
                     <Route exact path={"/"} component={Home} />
                     <Route path={"/my-docs"} component={MyDocs} />
                     <Route path={"/dashboard"} component={Dashboard} />
-                    <Route path={"/editor"} component={Editor} />
+                    <Route path={"/editor"} component={Document} />
                     <Route path={"/login"} component={Login} />
                     <Route path={"/signup"} component={Signup} />
                 </Switch>
