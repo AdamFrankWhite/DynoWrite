@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FileDownload from "js-file-download";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import Bold from "@tiptap/extension-bold";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faParagraph,
@@ -19,7 +23,7 @@ import {
     faAlignLeft,
     faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { generateHTML } from "@tiptap/html";
 import { connect } from "react-redux";
 import { updateWritingSession, saveFile } from "../redux/actions/userActions";
 const MenuBar = (props) => {
@@ -165,7 +169,15 @@ const MenuBar = (props) => {
             <span onClick={() => exportPdf()}>
                 <FontAwesomeIcon icon={faFilePdf} />
             </span>
-            <span onClick={() => props.saveFile()}>
+            <span
+                onClick={() => {
+                    props.saveFile(
+                        props.user.currentDoc.filename,
+                        props.writingSession,
+                        props.user.email
+                    );
+                }}
+            >
                 <FontAwesomeIcon icon={faSave} />
             </span>
         </div>
@@ -173,6 +185,12 @@ const MenuBar = (props) => {
 };
 
 const MyEditor = (props) => {
+    const [content, setContent] = useState(
+        props.user.currentDoc ? props.user.currentDoc.content : ""
+    );
+    // useEffect(() => {
+    //     setContent(props.user.currentDoc.content);
+    // }, [props.user.currentDoc]);
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -181,24 +199,31 @@ const MyEditor = (props) => {
             }),
             Highlight,
         ],
-        content: `
-      
-    `,
+        content,
+
         autofocus: true,
         onUpdate() {
-            const json = this.getJSON();
-            props.updateWritingSession(json);
+            // const json = this.getJSON();
+            const html = this.getHTML();
+            console.log(html);
+            // props.updateWritingSession(json);
+            props.updateWritingSession(html);
         },
     });
 
     return (
         <div>
-            <MenuBar saveFile={props.saveFile} editor={editor} />
+            <MenuBar
+                saveFile={props.saveFile}
+                user={props.user}
+                writingSession={props.user.writingSession}
+                editor={editor}
+            />
             <EditorContent editor={editor} />
         </div>
     );
 };
-const mapStateToProps = function (state) {
+const mapStateToProps = (state) => {
     return {
         user: state.user,
         writingSession: state.writingSession,
