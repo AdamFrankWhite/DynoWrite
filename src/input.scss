@@ -172,3 +172,37 @@ form {
     min-height: 60vh;
     padding: 2em 5vw;
 }
+
+// My Docs
+
+.my-docs {
+    padding: 3% 5%;
+    ul {
+        list-style-type: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        li {
+            width: 100%;
+
+            &:first-of-type {
+                display: grid;
+                grid-template-columns: 3fr 1fr 1fr;
+                padding: 0.25em 2%;
+                font-size: 0.9em;
+            }
+            a {
+                display: block;
+                width: 100%;
+                padding: 0.75em 2%;
+                border: 1px gray solid;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: 3fr 1fr 1fr;
+                margin-bottom: 0.25em;
+                &:hover {
+                    border: 1px blue solid;
+                }
+            }
+        }
+    }
+}

@@ -2,13 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setCurrentDocument } from "../redux/actions/userActions";
+import moment from "moment";
 function MyDocs(props) {
     return (
-        <div>
+        <section className="my-docs">
             <h2>My Docs</h2>
             <ul>
+                <li>
+                    <span>File</span>
+                    <span>Date Created</span>
+                    <span>Last edited</span>
+                </li>
                 {props.user.documents.map((doc) => {
-                    console.log(doc.filename);
+                    console.log(doc);
                     return (
                         <li>
                             <NavLink
@@ -22,13 +28,23 @@ function MyDocs(props) {
                                     );
                                 }}
                             >
-                                {doc.filename}
+                                <span>{doc.filename}</span>
+                                <span>
+                                    {moment(doc.created_on).format(
+                                        "DD/MM/YYYY"
+                                    )}
+                                </span>
+                                <span>
+                                    {moment(doc.modified_on)
+                                        .startOf("minute")
+                                        .fromNow()}
+                                </span>
                             </NavLink>
                         </li>
                     );
                 })}
             </ul>
-        </div>
+        </section>
     );
 }
 

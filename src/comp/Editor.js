@@ -185,6 +185,9 @@ const MenuBar = (props) => {
 };
 
 const MyEditor = (props) => {
+    // setInterval(() => {
+    //     console.log("autosave");
+    // }, 60000);
     const [content, setContent] = useState(
         props.user.currentDoc ? props.user.currentDoc.content : ""
     );
