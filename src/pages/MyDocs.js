@@ -15,12 +15,13 @@ import {
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { ContextMenu } from "../comp/ContextMenu";
+import { FileInfoWindow } from "../comp/FileInfoWindow";
 function MyDocs(props) {
     const [xPos, setXPos] = useState("0px");
     const [yPos, setYPos] = useState("0px");
     const [showMenu, toggleMenu] = useState(false);
     const [fileToEdit, setFileEdit] = useState("");
-    const [fileInfo, setFileInfo] = useState("");
+    const [fileInfo, showFileInfo] = useState("");
     const [newFilename, setUpdateFilename] = useState("");
     const [selectedFile, setSelectedFile] = useState("");
     const [myDocuments, getMyDocuments] = useState(props.user.documents);
@@ -62,10 +63,18 @@ function MyDocs(props) {
             onContextMenu={(e) => e.preventDefault()}
             onClick={(e) => leftClick(e)}
         >
+            {fileInfo && (
+                <FileInfoWindow
+                    file={props.user.documents.filter(
+                        (doc) => doc.filename == fileInfo
+                    )}
+                    closeInfo={showFileInfo}
+                />
+            )}
             <ContextMenu
                 setFileEdit={setFileEdit}
                 selectedFile={selectedFile}
-                setFileInfo={setFileInfo}
+                showFileInfo={showFileInfo}
                 left={xPos}
                 top={yPos}
                 showMenu={showMenu}

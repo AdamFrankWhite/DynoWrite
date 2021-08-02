@@ -6,7 +6,7 @@ export const ContextMenu = ({
     top,
     setFileEdit,
     selectedFile,
-    setFileInfo,
+    showFileInfo,
 }) => {
     return (
         <ul
@@ -19,7 +19,7 @@ export const ContextMenu = ({
         >
             <li onClick={() => setFileEdit(selectedFile)}>rename</li>
             <li>delete</li>
-            <li onClick={() => setFileInfo(selectedFile)}>info</li>
+            <li onClick={() => showFileInfo(selectedFile)}>info</li>
         </ul>
     );
 };

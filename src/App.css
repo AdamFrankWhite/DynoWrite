@@ -267,5 +267,64 @@ form input[type=submit] {
     opacity: 1;
   }
 }
+.file-info {
+  margin: 0;
+  position: absolute;
+  padding: 1.5em;
+  bottom: 5px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  color: #4a545e;
+  font-size: 0.9em;
+  font-weight: 500;
+  border-radius: 0px 5px 5px 5px;
+  box-shadow: 1px 1px 3px gray;
+  border: 1px solid gray;
+}
+.file-info .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+.file-info .close:hover {
+  cursor: pointer;
+}
+.file-info svg {
+  font-size: 1.5em;
+}
+.file-info h2 {
+  margin: 0 auto;
+}
+.file-info ul {
+  list-style-type: none;
+  padding: 0;
+}
+.file-info ul li {
+  display: flex;
+  align-items: center;
+  padding: 0.1em 0;
+  justify-content: space-between;
+  font-weight: 1.1em;
+  text-align: left;
+}
+.file-info ul li .title {
+  font-size: 0.9em;
+  font-weight: 500;
+}
+.file-info ul li.download {
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  padding: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-info ul li.download svg {
+  margin-right: 0.3em;
+}
 
 /*# sourceMappingURL=App.css.map */
