@@ -16,21 +16,31 @@ function MyDocs(props) {
     const [xPos, setXPos] = useState("0px");
     const [yPos, setYPos] = useState("0px");
     const [showMenu, toggleMenu] = useState(false);
-    const handleClick = (e) => {
+    const [fileToEdit, setFileEdit] = useState("");
+    const [clickedMenuItem, setClickedMenuItem] = useState("");
+    const handleRightClick = (e, filename) => {
         e.preventDefault();
+        console.log(filename);
+        setFileEdit(filename);
 
-        setXPos(`${e.clientX}px`);
-        setYPos(`${e.clientY}px`);
+        const calcX = e.clientX;
+        const calcY = e.clientY;
+        setXPos(`${calcX}px`);
+        setYPos(`${calcY}px`);
         toggleMenu(!showMenu);
-        console.log(xPos, yPos);
     };
     useEffect(() => {
         showMenu && toggleMenu(false);
     }, []);
     const leftClick = (e) => {
-        if (showMenu) {
-            e.nativeEvent.stopImmediatePropagation();
-            toggleMenu(false);
+        if (clickedMenuItem)
+            if (showMenu) {
+                e.nativeEvent.stopImmediatePropagation();
+                toggleMenu(false);
+            }
+
+        if (!showMenu && fileToEdit !== "") {
+            setFileEdit("");
         }
     };
     return (
@@ -39,7 +49,12 @@ function MyDocs(props) {
             onContextMenu={(e) => e.preventDefault()}
             onClick={(e) => leftClick(e)}
         >
-            <ContextMenu left={xPos} top={yPos} showMenu={showMenu} />
+            <ContextMenu
+                setMenuItem={setClickedMenuItem}
+                left={xPos}
+                top={yPos}
+                showMenu={showMenu}
+            />
             <h2>My Docs</h2>
             <ul className="filelist">
                 <li>
@@ -48,12 +63,16 @@ function MyDocs(props) {
                     <span>Last edited</span>
                 </li>
                 {props.user.documents.map((doc) => {
-                    console.log(doc);
                     return (
                         <li>
                             <NavLink
-                                onContextMenu={(e) => handleClick(e)}
-                                to={"/editor"}
+                                className={
+                                    fileToEdit != "" ? "disabled-link" : ""
+                                }
+                                onContextMenu={(e) =>
+                                    handleRightClick(e, doc.filename)
+                                }
+                                to={fileToEdit == "" ? "/editor" : ""}
                                 onClick={() => {
                                     console.log(doc);
                                     props.setCurrentDocument(
@@ -65,7 +84,18 @@ function MyDocs(props) {
                             >
                                 <span className="filename">
                                     <FontAwesomeIcon icon={faFileAlt} />
-                                    {doc.filename}
+                                    {fileToEdit == doc.filename ? (
+                                        <input
+                                            type="text"
+                                            className="clickable"
+                                            onClick={(e) =>
+                                                fileToEdit == doc.filename &&
+                                                e.preventDefault()
+                                            }
+                                        />
+                                    ) : (
+                                        doc.filename
+                                    )}
                                 </span>
                                 <span>
                                     {moment(doc.created_on).format(

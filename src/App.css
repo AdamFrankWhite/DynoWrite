@@ -6,6 +6,14 @@ a {
   text-decoration: none;
 }
 
+.disabled-link {
+  pointer-events: none;
+}
+
+.clickable {
+  pointer-events: auto !important;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -220,19 +228,25 @@ form input[type=submit] {
   display: none;
   background: white;
   animation: fadeIn 0.2s ease-in-out;
-  border: 1px solid slategray;
   list-style-type: none;
   padding: 0;
   margin: 0;
+  overflow: hidden;
+  border-radius: 0px 5px 5px 5px;
   box-shadow: 1px 1px 3px gray;
 }
 .right-click-menu li {
   margin: 0;
   text-align: center;
-  color: slategray;
+  background: #fafafa;
+  color: #4a545e;
   width: 100%;
-  padding: 0.25em 0.5em;
-  border-bottom: gray solid 1px;
+  font-size: 0.9em;
+  font-weight: 500;
+  padding: 0.25em 1.5em;
+  border-bottom: lightgray solid 1px;
+}
+.right-click-menu li:hover {
   background: darkgray;
   cursor: pointer;
   color: white;

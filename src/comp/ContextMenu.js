@@ -10,9 +10,9 @@ export const ContextMenu = ({ showMenu, left, top }) => {
                 top,
             }}
         >
-            <li>rename</li>
+            <li onClick={() => console.log("rename")}>rename</li>
             <li>delete</li>
-            <li>more info</li>
+            <li>info</li>
         </ul>
     );
 };

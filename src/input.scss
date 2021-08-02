@@ -6,6 +6,16 @@
 a {
     text-decoration: none;
 }
+
+// Utilities
+
+.disabled-link {
+    pointer-events: none;
+}
+
+.clickable {
+    pointer-events: auto !important;
+}
 // Navbar //
 header {
     display: flex;
@@ -235,29 +245,29 @@ form {
     background: white;
     animation: fadeIn 0.2s ease-in-out;
 
-    border: 1px solid slategray;
+    // border: 1px solid slategray;
     list-style-type: none;
     padding: 0;
     margin: 0;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
-    // border-radius: 5px;
+    overflow: hidden;
+    border-radius: 0px 5px 5px 5px;
     box-shadow: 1px 1px 3px gray;
     li {
         margin: 0;
         text-align: center;
-        color: slategray;
+        background: #fafafa;
+        color: rgb(74, 84, 94);
         width: 100%;
-        padding: 0.25em 0.5em;
-        border-bottom: gray solid 1px;
-        // &:hover {
-        background: darkgray;
-        cursor: pointer;
-        color: white;
-        transition: all 0.2s;
-        // }
+        font-size: 0.9em;
+        font-weight: 500;
+        padding: 0.25em 1.5em;
+        border-bottom: lightgray solid 1px;
+        &:hover {
+            background: darkgray;
+            cursor: pointer;
+            color: white;
+            transition: all 0.2s;
+        }
     }
 }
 
