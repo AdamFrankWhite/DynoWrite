@@ -177,32 +177,95 @@ form {
 
 .my-docs {
     padding: 3% 5%;
-    ul {
+    ul.filelist {
         list-style-type: none;
         display: grid;
         grid-template-columns: 1fr;
         li {
             width: 100%;
-
+            a:visited {
+                color: inherit;
+            }
             &:first-of-type {
                 display: grid;
-                grid-template-columns: 3fr 1fr 1fr;
+                grid-template-columns: 5fr 2fr 2fr 1fr;
                 padding: 0.25em 2%;
                 font-size: 0.9em;
             }
-            a {
+            span {
+                display: flex;
+                align-items: center;
+            }
+            span > svg {
+                margin-right: 1em;
+                font-size: 0.9em;
+                color: black;
+            }
+            a:not(.delete) {
                 display: block;
                 width: 100%;
                 padding: 0.75em 2%;
                 border: 1px gray solid;
                 border-radius: 10px;
                 display: grid;
-                grid-template-columns: 3fr 1fr 1fr;
+                grid-template-columns: 5fr 2fr 2fr 1fr;
                 margin-bottom: 0.25em;
                 &:hover {
-                    border: 1px blue solid;
+                    box-shadow: 0px 0px 3px blue;
+                }
+            }
+            .delete {
+                display: flex;
+                justify-content: center;
+                svg:hover {
+                    cursor: pointer;
+                    color: blue;
                 }
             }
         }
+    }
+}
+
+// Right click menu
+
+.right-click-menu {
+    position: absolute;
+    display: none;
+
+    background: white;
+    animation: fadeIn 0.2s ease-in-out;
+
+    border: 1px solid slategray;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+    // border-radius: 5px;
+    box-shadow: 1px 1px 3px gray;
+    li {
+        margin: 0;
+        text-align: center;
+        color: slategray;
+        width: 100%;
+        padding: 0.25em 0.5em;
+        border-bottom: gray solid 1px;
+        // &:hover {
+        background: darkgray;
+        cursor: pointer;
+        color: white;
+        transition: all 0.2s;
+        // }
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
