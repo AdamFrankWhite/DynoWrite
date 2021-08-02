@@ -44,6 +44,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 user: action.payload.user,
+                documents: action.payload.user.documents,
                 currentDoc: action.payload.currentDoc,
             };
         case CREATE_FILE:

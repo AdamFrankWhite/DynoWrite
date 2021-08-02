@@ -222,6 +222,12 @@ form input[type=submit] {
   cursor: pointer;
   color: blue;
 }
+.my-docs ul.filelist li input[type=text]:focus {
+  border: blue 1px solid;
+  font-size: 0.95em;
+  padding: 0.15em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
 
 .right-click-menu {
   position: absolute;

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setCurrentDocument } from "../redux/actions/userActions";
+import {
+    setCurrentDocument,
+    updateFilename,
+} from "../redux/actions/userActions";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,11 +20,18 @@ function MyDocs(props) {
     const [yPos, setYPos] = useState("0px");
     const [showMenu, toggleMenu] = useState(false);
     const [fileToEdit, setFileEdit] = useState("");
-    const [clickedMenuItem, setClickedMenuItem] = useState("");
+    const [fileInfo, setFileInfo] = useState("");
+    const [newFilename, setUpdateFilename] = useState("");
+    const [selectedFile, setSelectedFile] = useState("");
+    const [myDocuments, getMyDocuments] = useState(props.user.documents);
+
+    useEffect(() => {
+        getMyDocuments(props.user.documents);
+    }, [props.user.documents]);
     const handleRightClick = (e, filename) => {
         e.preventDefault();
         console.log(filename);
-        setFileEdit(filename);
+        setSelectedFile(filename);
 
         const calcX = e.clientX;
         const calcY = e.clientY;
@@ -32,12 +42,15 @@ function MyDocs(props) {
     useEffect(() => {
         showMenu && toggleMenu(false);
     }, []);
+    useEffect(() => {
+        setUpdateFilename(selectedFile);
+    }, [selectedFile]);
     const leftClick = (e) => {
-        if (clickedMenuItem)
-            if (showMenu) {
-                e.nativeEvent.stopImmediatePropagation();
-                toggleMenu(false);
-            }
+        // if (selectedFile)
+        if (showMenu) {
+            e.nativeEvent.stopImmediatePropagation();
+            toggleMenu(false);
+        }
 
         if (!showMenu && fileToEdit !== "") {
             setFileEdit("");
@@ -50,7 +63,9 @@ function MyDocs(props) {
             onClick={(e) => leftClick(e)}
         >
             <ContextMenu
-                setMenuItem={setClickedMenuItem}
+                setFileEdit={setFileEdit}
+                selectedFile={selectedFile}
+                setFileInfo={setFileInfo}
                 left={xPos}
                 top={yPos}
                 showMenu={showMenu}
@@ -62,7 +77,7 @@ function MyDocs(props) {
                     <span>Date Created</span>
                     <span>Last edited</span>
                 </li>
-                {props.user.documents.map((doc) => {
+                {myDocuments.map((doc) => {
                     return (
                         <li>
                             <NavLink
@@ -92,6 +107,24 @@ function MyDocs(props) {
                                                 fileToEdit == doc.filename &&
                                                 e.preventDefault()
                                             }
+                                            onChange={(e) =>
+                                                setUpdateFilename(
+                                                    e.target.value
+                                                )
+                                            }
+                                            value={newFilename}
+                                            autoFocus={true}
+                                            onBlur={() => {
+                                                if (
+                                                    newFilename !== fileToEdit
+                                                ) {
+                                                    props.updateFilename(
+                                                        newFilename,
+                                                        props.user.email,
+                                                        props.user.currentDoc.id
+                                                    );
+                                                }
+                                            }}
                                         />
                                     ) : (
                                         doc.filename
@@ -133,6 +166,7 @@ const mapStateToProps = (state) => {
 
 const mapActionsToProps = {
     setCurrentDocument,
+    updateFilename,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(MyDocs);

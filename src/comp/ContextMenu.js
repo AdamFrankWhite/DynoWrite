@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-export const ContextMenu = ({ showMenu, left, top }) => {
+export const ContextMenu = ({
+    showMenu,
+    left,
+    top,
+    setFileEdit,
+    selectedFile,
+    setFileInfo,
+}) => {
     return (
         <ul
             className="right-click-menu"
@@ -10,9 +17,9 @@ export const ContextMenu = ({ showMenu, left, top }) => {
                 top,
             }}
         >
-            <li onClick={() => console.log("rename")}>rename</li>
+            <li onClick={() => setFileEdit(selectedFile)}>rename</li>
             <li>delete</li>
-            <li>info</li>
+            <li onClick={() => setFileInfo(selectedFile)}>info</li>
         </ul>
     );
 };
