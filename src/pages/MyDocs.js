@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import {
     setCurrentDocument,
     updateFilename,
+    deleteDocument,
 } from "../redux/actions/userActions";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +34,14 @@ function MyDocs(props) {
         e.preventDefault();
         console.log(filename);
         setSelectedFile(filename);
-
+        let currentDoc = props.user.documents.filter(
+            (doc) => doc.filename == filename
+        )[0];
+        props.setCurrentDocument(
+            currentDoc.filename,
+            currentDoc.content,
+            currentDoc.id
+        );
         const calcX = e.clientX;
         const calcY = e.clientY;
         setXPos(`${calcX}px`);
@@ -140,7 +148,7 @@ function MyDocs(props) {
                                     )}
                                 </span>
                                 <span>
-                                    {moment(doc.created_on).format(
+                                    {moment(doc.date_created).format(
                                         "DD/MM/YYYY"
                                     )}
                                 </span>
@@ -154,7 +162,18 @@ function MyDocs(props) {
                                         style={{
                                             textAlign: "center",
                                         }}
-                                        onClick={(e) => e.stopPropagation()}
+                                        onClick={(e) => {
+                                            e.nativeEvent.stopImmediatePropagation();
+                                            console.log(
+                                                "delete",
+                                                props.user.email,
+                                                doc.id
+                                            );
+                                            props.deleteDocument(
+                                                props.user.email,
+                                                doc.id
+                                            );
+                                        }}
                                         icon={faTrash}
                                     ></FontAwesomeIcon>
                                 </span>
@@ -176,6 +195,7 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
     setCurrentDocument,
     updateFilename,
+    deleteDocument,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(MyDocs);

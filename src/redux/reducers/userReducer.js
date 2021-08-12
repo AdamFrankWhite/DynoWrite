@@ -11,6 +11,7 @@ import {
     UPDATE_WRITING_SESSION,
     GET_DOCUMENTS,
     SET_CURRENT_DOCUMENT,
+    DELETE_DOCUMENT,
 } from "../types";
 
 const initialState = {
@@ -64,6 +65,13 @@ export default function (state = initialState, action) {
                 user: action.payload.user,
                 documents: action.payload.documents,
             };
+        case DELETE_DOCUMENT:
+            return {
+                ...state,
+                user: action.payload.user,
+                documents: action.payload.documents,
+            };
+
         case SET_USER:
             return {
                 ...state,

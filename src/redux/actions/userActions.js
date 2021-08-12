@@ -8,6 +8,7 @@ import {
     UPDATE_FILE,
     SET_CURRENT_DOCUMENT,
     GET_DOCUMENTS,
+    DELETE_DOCUMENT,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -100,4 +101,13 @@ export const getDocuments = (user) => (dispatch) => {
         console.log(res.data);
         dispatch({ type: GET_DOCUMENTS, payload: res.data.user });
     });
+};
+
+export const deleteDocument = (user, fileID) => (dispatch) => {
+    axios
+        .post("http://localhost:5000/delete-doc", { user, fileID })
+        .then((res) => {
+            console.log(res.data);
+            dispatch({ type: DELETE_DOCUMENT, payload: res.data.user });
+        });
 };
