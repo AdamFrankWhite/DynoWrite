@@ -15,7 +15,7 @@ import {
     faRecycle,
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { ContextMenu } from "../comp/ContextMenu";
+import ContextMenu from "../comp/ContextMenu";
 import { FileInfoWindow } from "../comp/FileInfoWindow";
 function MyDocs(props) {
     const [xPos, setXPos] = useState("0px");
@@ -86,6 +86,7 @@ function MyDocs(props) {
                 left={xPos}
                 top={yPos}
                 showMenu={showMenu}
+                currentDoc={props.currentDoc}
             />
             <h2>My Docs</h2>
             <ul className="filelist">
@@ -157,7 +158,7 @@ function MyDocs(props) {
                                         .startOf("minute")
                                         .fromNow()}
                                 </span>
-                                <span className="delete">
+                                {/* <span className="delete">
                                     <FontAwesomeIcon
                                         style={{
                                             textAlign: "center",
@@ -176,7 +177,7 @@ function MyDocs(props) {
                                         }}
                                         icon={faTrash}
                                     ></FontAwesomeIcon>
-                                </span>
+                                </span> */}
                             </NavLink>
                         </li>
                     );

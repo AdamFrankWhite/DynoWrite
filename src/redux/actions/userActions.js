@@ -103,9 +103,10 @@ export const getDocuments = (user) => (dispatch) => {
     });
 };
 
-export const deleteDocument = (user, fileID) => (dispatch) => {
+export const deleteDocument = (email, document) => (dispatch) => {
+    console.log(document);
     axios
-        .post("http://localhost:5000/delete-doc", { user, fileID })
+        .put("http://localhost:5000/delete-doc", { email, document })
         .then((res) => {
             console.log(res.data);
             dispatch({ type: DELETE_DOCUMENT, payload: res.data.user });
