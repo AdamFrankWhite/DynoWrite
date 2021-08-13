@@ -21,6 +21,7 @@ const initialState = {
     email: null,
     documents: [],
     currentDoc: null,
+    deleted_documents: null,
 };
 
 export default function (state = initialState, action) {
@@ -32,6 +33,7 @@ export default function (state = initialState, action) {
                 token: action.payload.token,
                 email: action.payload.user.email,
                 documents: action.payload.user.documents,
+                deleted_documents: action.payload.user.deleted_documents,
             };
 
         case LOGOUT:

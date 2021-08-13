@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MyDocs from "./pages/MyDocs.js";
 import Dashboard from "./pages/Dashboard";
+import Trash from "./pages/Trash";
 import "./App.css";
 import {
     BrowserRouter as Router,
@@ -25,6 +26,7 @@ function App() {
                     <Route path={"/editor"} component={Document} />
                     <Route path={"/login"} component={Login} />
                     <Route path={"/signup"} component={Signup} />
+                    <Route path={"/trash"} component={Trash} />
                 </Switch>
             </Router>
         </div>
