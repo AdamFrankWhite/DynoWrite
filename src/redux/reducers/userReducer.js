@@ -53,6 +53,7 @@ export default function (state = initialState, action) {
                 ...state,
                 documents: action.payload.documents,
                 currentDoc: action.payload.currentDoc,
+                writingSession: null,
             };
         case SET_CURRENT_DOCUMENT:
             return {

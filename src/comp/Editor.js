@@ -191,9 +191,14 @@ const MyEditor = (props) => {
     const [content, setContent] = useState(
         props.user.currentDoc ? props.user.currentDoc.content : ""
     );
-    // useEffect(() => {
-    //     setContent(props.user.currentDoc.content);
-    // }, [props.user.currentDoc]);
+    useEffect(() => {
+        // if (props.user.currentDoc) {
+        //     setContent(props.user.currentDoc.content);
+        // }
+        if (editor) {
+            editor.commands.setContent("");
+        }
+    }, [props.user.currentDoc]);
     const editor = useEditor({
         extensions: [
             StarterKit,

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { updateFilename } from "../redux/actions/userActions";
 function Filename(props) {
     const [filename, setFilename] = useState(
         props.user.currentDoc ? props.user.currentDoc.filename : "untitled"
     );
+    useEffect(() => {
+        setFilename(
+            props.user.currentDoc ? props.user.currentDoc.filename : "untitled"
+        );
+    }, [props.user.currentDoc]);
     return (
         <div>
             <input

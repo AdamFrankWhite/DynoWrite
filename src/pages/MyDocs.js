@@ -88,6 +88,7 @@ function MyDocs(props) {
                 showMenu={showMenu}
                 currentDoc={props.currentDoc}
             />
+            <NavLink to="/trash">Recycle Bin</NavLink>
             <h2>My Docs</h2>
             <ul className="filelist">
                 <li>
