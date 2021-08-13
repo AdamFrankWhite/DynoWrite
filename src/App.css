@@ -194,6 +194,9 @@ form input[type=submit] {
   padding: 0.25em 2%;
   font-size: 0.9em;
 }
+.my-docs ul.filelist li .checkbox {
+  margin-right: 0.5em;
+}
 .my-docs ul.filelist li span {
   display: flex;
   align-items: center;

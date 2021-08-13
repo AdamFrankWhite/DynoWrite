@@ -110,6 +110,7 @@ function MyDocs(props) {
                                 <FontAwesomeIcon
                                     onClick={() => handleRemoveItem(doc.id)}
                                     icon={faCheckSquare}
+                                    className="checkbox"
                                 />
                             ) : (
                                 <FontAwesomeIcon
@@ -117,6 +118,7 @@ function MyDocs(props) {
                                         setChecked([...checked, doc.id])
                                     }
                                     icon={faSquare}
+                                    className="checkbox"
                                 />
                             )}
                             <NavLink
@@ -129,15 +131,26 @@ function MyDocs(props) {
                                 to={fileToEdit == "" ? "/editor" : ""}
                                 onClick={() => {
                                     console.log(doc);
-                                    props.setCurrentDocument(
-                                        doc.filename,
-                                        doc.content,
-                                        doc.id
-                                    );
+                                    props.setCurrentDocument(doc);
                                 }}
+                                style={
+                                    checked.includes(doc.id)
+                                        ? { background: "blue", color: "white" }
+                                        : {}
+                                }
                             >
                                 <span className="filename">
-                                    <FontAwesomeIcon icon={faFileAlt} />
+                                    <FontAwesomeIcon
+                                        icon={faFileAlt}
+                                        style={
+                                            checked.includes(doc.id)
+                                                ? {
+                                                      background: "blue",
+                                                      color: "white",
+                                                  }
+                                                : {}
+                                        }
+                                    />
                                     {fileToEdit == doc.filename ? (
                                         <input
                                             type="text"
