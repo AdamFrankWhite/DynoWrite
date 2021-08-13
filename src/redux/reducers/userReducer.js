@@ -21,7 +21,7 @@ const initialState = {
     email: null,
     documents: [],
     currentDoc: null,
-    deleted_documents: null,
+    deleted_documents: [],
 };
 
 export default function (state = initialState, action) {
@@ -72,7 +72,8 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 user: action.payload.user,
-                documents: action.payload.documents,
+                documents: action.payload.user.documents,
+                deleted_documents: action.payload.user.deleted_documents,
             };
 
         case SET_USER:

@@ -25,7 +25,7 @@ function Trash(props) {
     const [fileInfo, showFileInfo] = useState("");
     const [newFilename, setUpdateFilename] = useState("");
     const [selectedFile, setSelectedFile] = useState("");
-    const [myTrash, getMyTrash] = useState(props.user.deleted_documents);
+    const [myTrash, getMyTrash] = useState([]);
 
     useEffect(() => {
         getMyTrash(props.user.deleted_documents);
@@ -37,11 +37,7 @@ function Trash(props) {
         let currentDoc = props.user.documents.filter(
             (doc) => doc.filename == filename
         )[0];
-        props.setCurrentDocument(
-            currentDoc.filename,
-            currentDoc.content,
-            currentDoc.id
-        );
+        props.setCurrentDocument(currentDoc);
         const calcX = e.clientX;
         const calcY = e.clientY;
         setXPos(`${calcX}px`);
@@ -93,8 +89,8 @@ function Trash(props) {
             <ul className="filelist">
                 <li>
                     <span>File</span>
-                    <span>Date Created</span>
-                    <span>Last edited</span>
+                    <span>Date Deleted</span>
+                    {/* <span>Last edited</span> */}
                 </li>
                 {myTrash.map((doc) => {
                     return (
@@ -150,15 +146,15 @@ function Trash(props) {
                                     )}
                                 </span>
                                 <span>
-                                    {moment(doc.date_created).format(
+                                    {moment(doc.date_deleted).format(
                                         "DD/MM/YYYY"
                                     )}
                                 </span>
-                                <span>
+                                {/* <span>
                                     {moment(doc.modified_on)
                                         .startOf("minute")
                                         .fromNow()}
-                                </span>
+                                </span> */}
                                 {/* <span className="delete">
                                     <FontAwesomeIcon
                                         style={{

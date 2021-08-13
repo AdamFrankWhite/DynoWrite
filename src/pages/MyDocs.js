@@ -9,10 +9,13 @@ import {
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+    faCheck,
+    faCheckSquare,
     faFileAlt,
     faFileWord,
     faFolder,
     faRecycle,
+    faSquare,
     faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import ContextMenu from "../comp/ContextMenu";
@@ -26,7 +29,7 @@ function MyDocs(props) {
     const [newFilename, setUpdateFilename] = useState("");
     const [selectedFile, setSelectedFile] = useState("");
     const [myDocuments, getMyDocuments] = useState(props.user.documents);
-
+    const [checked, setChecked] = useState([]);
     useEffect(() => {
         getMyDocuments(props.user.documents);
     }, [props.user.documents]);
@@ -37,11 +40,7 @@ function MyDocs(props) {
         let currentDoc = props.user.documents.filter(
             (doc) => doc.filename == filename
         )[0];
-        props.setCurrentDocument(
-            currentDoc.filename,
-            currentDoc.content,
-            currentDoc.id
-        );
+        props.setCurrentDocument(currentDoc);
         const calcX = e.clientX;
         const calcY = e.clientY;
         setXPos(`${calcX}px`);
@@ -54,6 +53,9 @@ function MyDocs(props) {
     useEffect(() => {
         setUpdateFilename(selectedFile);
     }, [selectedFile]);
+    useEffect(() => {
+        console.log(checked);
+    }, [checked]);
     const leftClick = (e) => {
         // if (selectedFile)
         if (showMenu) {
@@ -65,6 +67,10 @@ function MyDocs(props) {
             setFileEdit("");
         }
     };
+    const handleRemoveItem = (doc) => {
+        setChecked(checked.filter((x) => x != doc));
+    };
+
     return (
         <section
             className="my-docs"
@@ -97,8 +103,22 @@ function MyDocs(props) {
                     <span>Last edited</span>
                 </li>
                 {myDocuments.map((doc) => {
+                    console.log(doc.id);
                     return (
                         <li>
+                            {checked.includes(doc.id) ? (
+                                <FontAwesomeIcon
+                                    onClick={() => handleRemoveItem(doc.id)}
+                                    icon={faCheckSquare}
+                                />
+                            ) : (
+                                <FontAwesomeIcon
+                                    onClick={() =>
+                                        setChecked([...checked, doc.id])
+                                    }
+                                    icon={faSquare}
+                                />
+                            )}
                             <NavLink
                                 className={
                                     fileToEdit != "" ? "disabled-link" : ""

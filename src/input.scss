@@ -193,6 +193,8 @@ form {
         grid-template-columns: 1fr;
         li {
             width: 100%;
+            display: flex;
+            align-items: center;
             a:visited {
                 color: inherit;
             }

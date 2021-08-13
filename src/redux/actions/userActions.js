@@ -81,17 +81,16 @@ export const createDoc = (email) => (dispatch) => {
     });
 };
 
-export const setCurrentDocument = (filename, content, id) => (dispatch) => {
+export const setCurrentDocument = (document) => (dispatch) => {
     // axios
     //     .get("http://localhost:5000/set-current-document", {
     //         filename,
     //         content,
     //     })
     //     .then((res) => {
-    console.log(filename, content);
     dispatch({
         type: SET_CURRENT_DOCUMENT,
-        payload: { filename, content, id },
+        payload: document,
     });
     // });
 };
@@ -109,6 +108,6 @@ export const deleteDocument = (email, document) => (dispatch) => {
         .put("http://localhost:5000/delete-doc", { email, document })
         .then((res) => {
             console.log(res.data);
-            dispatch({ type: DELETE_DOCUMENT, payload: res.data.user });
+            dispatch({ type: DELETE_DOCUMENT, payload: res.data });
         });
 };
