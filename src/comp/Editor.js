@@ -27,7 +27,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { generateHTML } from "@tiptap/html";
 import { connect } from "react-redux";
-import { updateWritingSession, saveFile } from "../redux/actions/userActions";
+import {
+    updateWritingSession,
+    saveFile,
+    setFullScreen,
+} from "../redux/actions/userActions";
 import DocNotes from "./DocNotes";
 const MenuBar = (props) => {
     const { editor } = props;
@@ -193,6 +197,7 @@ const MyEditor = (props) => {
     );
 
     const [toggleNotesView, setToggleNotesView] = useState(false);
+    const [fullScreen, setFullScreen] = useState(false);
     useEffect(() => {
         // if (props.user.currentDoc) {
         //     setContent(props.user.currentDoc.content);
@@ -249,6 +254,25 @@ const MyEditor = (props) => {
                 />
                 Notes
             </div>
+            <div
+                className="notes-btn full-screen-btn"
+                onClick={() => {
+                    props.setFullScreen(!props.user.fullscreen);
+                }}
+            >
+                <FontAwesomeIcon
+                    style={
+                        toggleNotesView
+                            ? {
+                                  transform: "rotate(180deg)",
+                                  transition: "all 0.5s",
+                              }
+                            : { transform: "rotate(0)", transition: "all 0.5s" }
+                    }
+                    icon={faChevronUp}
+                />
+                Full Screen
+            </div>
             <DocNotes view={toggleNotesView} />
         </div>
     );
@@ -263,5 +287,6 @@ const mapStateToProps = (state) => {
 const mapActionsToProps = {
     updateWritingSession,
     saveFile,
+    setFullScreen,
 };
 export default connect(mapStateToProps, mapActionsToProps)(MyEditor);

@@ -12,6 +12,7 @@ import {
     GET_DOCUMENTS,
     SET_CURRENT_DOCUMENT,
     DELETE_DOCUMENT,
+    SET_FULLSCREEN,
 } from "../types";
 
 const initialState = {
@@ -22,6 +23,7 @@ const initialState = {
     documents: [],
     currentDoc: null,
     deleted_documents: [],
+    fullscreen: false,
 };
 
 export default function (state = initialState, action) {
@@ -61,6 +63,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 currentDoc: action.payload,
+                writingSession: action.payload.content,
             };
         case GET_DOCUMENTS:
             return {
@@ -81,7 +84,11 @@ export default function (state = initialState, action) {
                 ...state,
                 userData: action.payload,
             };
-
+        case SET_FULLSCREEN:
+            return {
+                ...state,
+                fullscreen: action.payload,
+            };
         case LOADING_UI:
             return { ...state, loading: action.payload };
         case SUCCESS_RES:

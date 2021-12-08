@@ -9,6 +9,7 @@ import {
     SET_CURRENT_DOCUMENT,
     GET_DOCUMENTS,
     DELETE_DOCUMENT,
+    SET_FULLSCREEN,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -110,4 +111,9 @@ export const deleteDocument = (email, document) => (dispatch) => {
             console.log(res.data);
             dispatch({ type: DELETE_DOCUMENT, payload: res.data });
         });
+};
+
+export const setFullScreen = (newView) => (dispatch) => {
+    console.log(newView);
+    dispatch({ type: SET_FULLSCREEN, payload: newView });
 };

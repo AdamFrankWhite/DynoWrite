@@ -6,7 +6,17 @@ import { logout, createDoc, getDocuments } from "../redux/actions/userActions";
 import userEvent from "@testing-library/user-event";
 function Navbar(props) {
     return (
-        <header>
+        <header
+            style={
+                props.user.fullscreen
+                    ? { transform: "translateY(-100%)", transition: "all 0.4s" }
+                    : {
+                          transform: "translateY(0)",
+                          overflow: "hidden",
+                          transition: "all 0.4s",
+                      }
+            }
+        >
             <div className="logo-cont">
                 <NavLink to="/">
                     <img src={logo} alt="logo" />
