@@ -9,6 +9,14 @@ import React from "react";
 import moment from "moment";
 export function FileInfoWindow(props) {
     const file = props.file[0];
+    console.log(file);
+    let fileContent = file.content;
+
+    let wordCount = fileContent
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s{2,}/g, " ")
+        .trim()
+        .split(" ").length;
     return (
         <div className="file-info">
             <FontAwesomeIcon
@@ -32,6 +40,9 @@ export function FileInfoWindow(props) {
                 <li>
                     <span className="title">Last Modified:</span>{" "}
                     {moment(file.modified_on).format("DD/MM/YYYY")}
+                </li>
+                <li>
+                    <span className="title">Word Count:</span> {wordCount}
                 </li>
                 <li className="download">
                     <FontAwesomeIcon icon={faFile} />
