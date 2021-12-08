@@ -11,7 +11,7 @@ function Filename(props) {
         );
     }, [props.user.currentDoc]);
     return (
-        <div>
+        <div className="filename__cont">
             <input
                 type="text"
                 onChange={(e) => setFilename(e.target.value)}

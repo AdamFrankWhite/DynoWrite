@@ -135,7 +135,12 @@ function MyDocs(props) {
                                 }}
                                 style={
                                     checked.includes(doc.id)
-                                        ? { background: "blue", color: "white" }
+                                        ? {
+                                              background: "blue",
+                                              color: "white",
+                                              WebkitTransition: "all 0.2s",
+                                              msTransition: "all 0.2s",
+                                          }
                                         : {}
                                 }
                             >
@@ -145,8 +150,11 @@ function MyDocs(props) {
                                         style={
                                             checked.includes(doc.id)
                                                 ? {
-                                                      background: "blue",
+                                                      background: "#263FFF",
                                                       color: "white",
+                                                      WebkitTransition:
+                                                          "all 0.2s",
+                                                      msTransition: "all 0.2s",
                                                   }
                                                 : {}
                                         }
