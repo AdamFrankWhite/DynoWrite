@@ -22,10 +22,13 @@ import {
     faAlignRight,
     faAlignLeft,
     faFilePdf,
+    faArrowCircleUp,
+    faChevronUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { generateHTML } from "@tiptap/html";
 import { connect } from "react-redux";
 import { updateWritingSession, saveFile } from "../redux/actions/userActions";
+import DocNotes from "./DocNotes";
 const MenuBar = (props) => {
     const { editor } = props;
     if (!editor) {
@@ -173,7 +176,7 @@ const MenuBar = (props) => {
                 onClick={() => {
                     props.saveFile(
                         props.user.currentDoc.filename,
-                        props.writingSession,
+                        props.user.writingSession,
                         props.user.email
                     );
                 }}
@@ -185,12 +188,11 @@ const MenuBar = (props) => {
 };
 
 const MyEditor = (props) => {
-    // setInterval(() => {
-    //     console.log("autosave");
-    // }, 60000);
     const [content, setContent] = useState(
         props.user.currentDoc ? props.user.currentDoc.content : ""
     );
+
+    const [toggleNotesView, setToggleNotesView] = useState(false);
     useEffect(() => {
         // if (props.user.currentDoc) {
         //     setContent(props.user.currentDoc.content);
@@ -220,7 +222,7 @@ const MyEditor = (props) => {
     });
 
     return (
-        <div>
+        <div className="editor-window">
             <MenuBar
                 saveFile={props.saveFile}
                 user={props.user}
@@ -228,13 +230,33 @@ const MyEditor = (props) => {
                 editor={editor}
             />
             <EditorContent editor={editor} />
+            <div
+                className="notes-btn"
+                onClick={() => {
+                    setToggleNotesView(!toggleNotesView);
+                }}
+            >
+                <FontAwesomeIcon
+                    style={
+                        toggleNotesView
+                            ? {
+                                  transform: "rotate(180deg)",
+                                  transition: "all 0.5s",
+                              }
+                            : { transform: "rotate(0)", transition: "all 0.5s" }
+                    }
+                    icon={faChevronUp}
+                />
+                Notes
+            </div>
+            <DocNotes view={toggleNotesView} />
         </div>
     );
 };
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        writingSession: state.writingSession,
+        // writingSession: state.writingSession,
     };
 };
 
