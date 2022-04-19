@@ -7,15 +7,7 @@ import userEvent from "@testing-library/user-event";
 function Navbar(props) {
     return (
         <header
-            style={
-                props.user.fullscreen
-                    ? { transform: "translateY(-100%)", transition: "all 0.4s" }
-                    : {
-                          transform: "translateY(0)",
-                          overflow: "hidden",
-                          transition: "all 0.4s",
-                      }
-            }
+        // className={props.user.fullscreen ? "fullscreen" : ""}
         >
             <div className="logo-cont">
                 <NavLink to="/">

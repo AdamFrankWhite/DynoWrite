@@ -10,6 +10,7 @@ import {
     GET_DOCUMENTS,
     DELETE_DOCUMENT,
     SET_FULLSCREEN,
+    SET_SCANNED_TEXT,
     SET_UNAUTHENTICATED,
     LOADING_UI,
     GET_USER_MESSAGES,
@@ -116,4 +117,32 @@ export const deleteDocument = (email, document) => (dispatch) => {
 export const setFullScreen = (newView) => (dispatch) => {
     console.log(newView);
     dispatch({ type: SET_FULLSCREEN, payload: newView });
+    if (newView == true) {
+        var elem = document.getElementById("editor");
+
+        /* When the openFullscreen() function is executed, open the video in fullscreen.
+    Note that we must include prefixes for different browsers, as they don't support the requestFullscreen method yet */
+
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+};
+
+export const uploadFile = (file) => (dispatch) => {
+    console.log(file.get("file"));
+
+    axios
+        .post("http://localhost:5000/upload", file)
+        .then((res) => {
+            let responseText = res.data;
+            dispatch({ type: SET_SCANNED_TEXT, payload: responseText });
+        })
+        .catch((err) => console.log(err));
 };

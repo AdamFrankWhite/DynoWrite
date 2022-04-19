@@ -13,6 +13,7 @@ import {
     SET_CURRENT_DOCUMENT,
     DELETE_DOCUMENT,
     SET_FULLSCREEN,
+    SET_SCANNED_TEXT,
 } from "../types";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
     currentDoc: null,
     deleted_documents: [],
     fullscreen: false,
+    scannedText: "",
 };
 
 export default function (state = initialState, action) {
@@ -64,6 +66,11 @@ export default function (state = initialState, action) {
                 ...state,
                 currentDoc: action.payload,
                 writingSession: action.payload.content,
+            };
+        case SET_SCANNED_TEXT:
+            return {
+                ...state,
+                scannedText: action.payload,
             };
         case GET_DOCUMENTS:
             return {

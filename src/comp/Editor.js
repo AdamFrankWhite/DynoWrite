@@ -10,6 +10,7 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import Bold from "@tiptap/extension-bold";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import {
     faParagraph,
     faSave,
@@ -197,15 +198,26 @@ const MyEditor = (props) => {
     );
 
     const [toggleNotesView, setToggleNotesView] = useState(false);
-    const [fullScreen, setFullScreen] = useState(false);
+    const handle = useFullScreenHandle();
+    const [checkFullScreen, setCheckFullScreen] = useState(false);
+
     useEffect(() => {
-        // if (props.user.currentDoc) {
-        //     setContent(props.user.currentDoc.content);
-        // }
-        if (editor) {
-            editor.commands.setContent("");
-        }
-    }, [props.user.currentDoc]);
+        console.log("check");
+        window.addEventListener("fullscreenchange", (event) => {
+            // setCheckFullScreen(!checkFullScreen);
+            props.setFullScreen(!props.user.fullscreen);
+        });
+    }, []);
+
+    // const [fullScreen, setFullScreen] = useState(false);
+    // useEffect(() => {
+    //     // if (props.user.currentDoc) {
+    //     //     setContent(props.user.currentDoc.content);
+    //     // }
+    //     if (editor) {
+    //         editor.commands.setContent("");
+    //     }
+    // }, [props.user.currentDoc]);
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -225,9 +237,13 @@ const MyEditor = (props) => {
             props.updateWritingSession(html);
         },
     });
-
+    useEffect(() => {
+        if (editor) {
+            editor.commands.setContent(props.user.scannedText);
+        }
+    }, [props.user.scannedText]);
     return (
-        <div className="editor-window">
+        <div className="editor-window" id="editor">
             <MenuBar
                 saveFile={props.saveFile}
                 user={props.user}
@@ -254,25 +270,32 @@ const MyEditor = (props) => {
                 />
                 Notes
             </div>
-            <div
-                className="notes-btn full-screen-btn"
-                onClick={() => {
-                    props.setFullScreen(!props.user.fullscreen);
-                }}
-            >
-                <FontAwesomeIcon
-                    style={
-                        toggleNotesView
-                            ? {
-                                  transform: "rotate(180deg)",
-                                  transition: "all 0.5s",
-                              }
-                            : { transform: "rotate(0)", transition: "all 0.5s" }
-                    }
-                    icon={faChevronUp}
-                />
-                Full Screen
-            </div>
+            {!props.user.fullscreen && (
+                <div
+                    className="notes-btn full-screen-btn"
+                    onClick={() => {
+                        props.setFullScreen(!props.user.fullscreen);
+                        setCheckFullScreen(true);
+                    }}
+                >
+                    <FontAwesomeIcon
+                        style={
+                            toggleNotesView
+                                ? {
+                                      transform: "rotate(180deg)",
+                                      transition: "all 0.5s",
+                                  }
+                                : {
+                                      transform: "rotate(0)",
+                                      transition: "all 0.5s",
+                                  }
+                        }
+                        icon={faChevronUp}
+                    />
+                    Full Screen
+                </div>
+            )}
+            {props.user.fullscreen && <span>Press Esc to exit fullscreen</span>}
             <DocNotes view={toggleNotesView} />
         </div>
     );
